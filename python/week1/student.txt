@@ -1,0 +1,3 @@
+tejas,60
+shiva,100
+Class Average: 80.0 | Total Students: 2
