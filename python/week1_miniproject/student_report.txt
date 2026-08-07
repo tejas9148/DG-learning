@@ -1,0 +1,25 @@
+name	average	grade	pass/fail
+Alice	88.00	B	Pass
+Bob	73.00	C	Pass
+Charlie	90.80	A	Pass
+David	67.00	D	Pass
+Emma	88.80	B	Pass
+Frank	80.20	B	Pass
+Grace	95.00	A	Pass
+Henry	72.80	C	Pass
+Ivy	82.00	B	Pass
+Jack	60.00	D	Pass
+Karen	92.00	A	Pass
+Leo	77.60	C	Pass
+Mia	86.00	B	Pass
+Noah	68.40	D	Pass
+Olivia	95.00	A	Pass
+Peter	72.80	C	Pass
+Quinn	89.00	B	Pass
+Ryan	64.40	D	Pass
+Sophia	98.00	A	Pass
+Thomas	80.00	B	Pass
+
+Class Summary
+Total Students: 20
+Class Average: 81.04
