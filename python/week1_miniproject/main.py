@@ -6,28 +6,34 @@
 #saves the report to .txt file having table and class summary
 
 import csv
-
+import json
+import logging
+logging.basicConfig(level=logging.INFO)
 def load_students(filename):
     try:
         students=[]
         with open(filename , "r") as f:
             reader=csv.DictReader(f)
             for row in reader:
+                if not row["Name"]:
+                    logging.warning("malformed row is found")
+                    continue
                 row["Math"] = int(row["Math"])
                 row["Science"] = int(row["Science"])
                 row["English"] = int(row["English"])
                 row["History"] = int(row["History"])
                 row["PE"] = int(row["PE"])
                 students.append(row)
+        logging.info("file is loaded sucessfully")
         return students
     except FileNotFoundError:
-            print("file not found")
-            return []
+        logging.error("file not found")
+        return []
     except ValueError:
-        print("incorrect Values in csv file")
+        logging.error("incorrect values in csv file")
         return []
     except KeyError:
-        print("values mismatch")
+        logging.error("values mismatched")
         return []
 
 
@@ -98,6 +104,19 @@ def save_report(students , output_path):
         f.write(f"Total Students: {total_students}\n")
         f.write(f"Class Average: {class_average:.2f}\n")
 
+def save_summary_json(students , output_path):
+    total_students=len(students)
+    if total_students==0:
+        return
+    total_average = sum(stu["Average"] for stu in students)
+    class_average = total_average / total_students
+
+    summary = {
+        "total_students": total_students,
+        "class_average": round(class_average, 2)
+    }
+    with open(output_path , "w") as f:
+        json.dump(summary , f , indent =4)
 
 def main():
     
@@ -141,10 +160,9 @@ def main():
     print("student report:")
     display_report(stats)
     save_report(stats, "student_report.txt")
+    save_summary_json(stats , "class_summary.json")
 
     
 
 if __name__ == "__main__":
     main()
-
- 
