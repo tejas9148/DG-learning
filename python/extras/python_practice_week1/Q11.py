@@ -1,11 +1,12 @@
 import sys
 import urllib.request     # for url response
-import re                 # for removing of tags
+import re   
+import argparse              # for removing of tags
 
-if len(sys.argv)!=2:
-    print("use python filename url")
-    sys.exit()
-url=sys.argv[1]
+parser = argparse.ArgumentParser( description ="remove html tags")
+parser.add_argument("url",help="url of the webpage")
+args=parser.parse_args()
+url = args.url
 response = urllib.request.urlopen(url)
 html=response.read()
 decoded = html.decode("utf-8")

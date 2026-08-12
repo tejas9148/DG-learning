@@ -1,21 +1,37 @@
-import os
-import sys
-def print_tree(directory , level=0):
-    print(" "*level+os.path.basename(directory))
-    for item in os.listdir(directory):
-        full_path = os.path.join(directory,item)
-        if os.path.isdir(full_path):
-            print_tree(full_path , level+1)
-        else:
-            print(" "*(level+1)+item)
+from pathlib import Path
+import argparse
 
-if __name__=="__main__":
-    if len(sys.argv)!=2:
-        print("use python name.py <directory")
+
+def print_tree(directory, level=0):
+    directory = Path(directory)
+
+    print(" " * level + directory.name)
+
+    for item in directory.iterdir():
+
+        if item.is_dir():
+            print_tree(item, level + 1)
+
+        else:
+            print(" " * (level + 1) + item.name)
+
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(
+        description="Print the directory tree"
+    )
+
+    parser.add_argument(
+        "directory",
+        help="Directory to display"
+    )
+
+    args = parser.parse_args()
+
+    directory = Path(args.directory)
+
+    if directory.is_dir():
+        print_tree(directory)
     else:
-        directory = sys.argv[1]
-
-        if os.path.isdir(directory):
-            print_tree(directory)
-        else:
-            print("invalid directory")
+        print("invalid directory")
