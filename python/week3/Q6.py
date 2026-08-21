@@ -21,3 +21,6 @@ class Student:
         return sum(self.scores)/len(self.scores) 
 s = Student('Ravi', [80, 90, 70, 85]) 
 print(s.name, round(s.average, 1), isinstance(s, Student)) 
+
+# actual output
+# Ravi 81.2 True
