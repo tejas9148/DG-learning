@@ -20,3 +20,19 @@ for email in emails:
         print(email , "valid")
     else :
         print(email , "invalid")
+        
+sql_statements = [
+    "CREATE TABLE users (id INT, name VARCHAR(50));",
+    "CREATE TABLE IF NOT EXISTS employees (id INT, name VARCHAR(50));"
+]
+
+pattern = r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(\w+)"
+
+for statement in sql_statements:
+    result = re.search(pattern, statement, re.IGNORECASE)
+
+    if result:
+        print("Full match :", result.group(0))
+        print("Table name :", result.group(1))
+    else:
+        print("No table found")
