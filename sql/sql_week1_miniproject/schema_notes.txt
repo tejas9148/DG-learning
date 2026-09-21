@@ -1,0 +1,11 @@
+3NF 
+
+1. The e-commerce data contains customer, order, product, category, and order-item information that could otherwise be stored together, causing repeated data.
+2. Customer-related attributes such as customer_name, email, phone, and city were separated into the customers table using customer_id as the primary key.
+3. Order-related attributes were separated into the orders table and connected to customers using customer_id.
+4. Product attributes such as product_name, price, and stock were separated into the products table using product_id.
+5. Category information was separated into the categories table and products reference it using category_id.
+6. The order_items table was used to connect orders and products while storing quantity and unit_price.
+7. This separation removes repeated customer, product, and category information and reduces update, insertion, and deletion anomalies.
+8. The redesign removes partial and transitive dependencies by ensuring attributes depend on the key of their respective table.
+9. The resulting structure follows 3NF with primary keys identifying entities and foreign keys maintaining relationships.
