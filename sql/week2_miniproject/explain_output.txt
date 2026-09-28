@@ -1,0 +1,121 @@
+
+before index :
+
+Query:
+
+EXPLAIN ANALYZE
+SELECT
+    customer_key,
+    date_key,
+    product_key,
+    quantity,
+    total_amount
+FROM fact_orders
+WHERE customer_key = 101
+  AND date_key BETWEEN 20260101 AND 20260331;
+
+
+Query Plan:
+
+Seq Scan on fact_orders
+(cost=0.00..27.85 rows=1 width=32)
+(actual time=0.041..0.042 rows=0 loops=1)
+
+Filter:
+(date_key >= 20260101)
+AND (date_key <= 20260331)
+AND (customer_key = 101)
+
+Rows Removed by Filter: 21
+
+Planning Time: 2.865 ms
+Execution Time: 0.154 ms
+
+
+
+= AFTER INDEX 
+
+Index Created:
+
+CREATE INDEX idx_fact_orders_customer_date
+ON fact_orders (customer_key, date_key);
+
+
+Query:
+
+EXPLAIN ANALYZE
+SELECT
+    customer_key,
+    date_key,
+    product_key,
+    quantity,
+    total_amount
+FROM fact_orders
+WHERE customer_key = 101
+  AND date_key BETWEEN 20260101 AND 20260331;
+
+
+Query Plan:
+
+Seq Scan on fact_orders
+(cost=0.00..1.37 rows=1 width=32)
+(actual time=0.039..0.039 rows=0 loops=1)
+
+Filter:
+(date_key >= 20260101)
+AND (date_key <= 20260331)
+AND (customer_key = 101)
+
+Rows Removed by Filter: 21
+
+Planning Time: 8.102 ms
+Execution Time: 0.061 ms
+
+
+COMPARISON
+
+                         BEFORE       AFTER
+-----------------------------------------------------
+Scan Type                Seq Scan     Seq Scan
+Execution Time           0.154 ms     0.061 ms
+Planning Time            2.865 ms     8.102 ms
+Rows Removed             21           21
+-----------------------------------------------------
+
+Execution time:
+Before = 0.154 ms
+After  = 0.061 ms
+
+OBSERVATION
+
+The composite index was created on:
+
+fact_orders(customer_key, date_key)
+
+PostgreSQL still used a Sequential Scan after
+creating the index.
+
+This is because fact_orders contains only 21 rows.
+For a very small table, a Sequential Scan can be
+faster than using an index.
+
+Therefore, the index benefit cannot be reliably
+measured with only 21 rows.
+
+A larger table would better demonstrate the
+benefit of the index.
+
+
+
+ INDEX SELECTION 
+
+1. The query filters using customer_key and date_key.
+2. Therefore, a composite index was created on both columns.
+3. customer_key was placed first because it uses equality (=).
+4. date_key was placed second because it uses a date range.
+5. This index can reduce the number of rows PostgreSQL examines.
+6. It is more useful when the fact table contains many rows.
+7. EXPLAIN ANALYZE was used before and after creating the index.
+8. PostgreSQL did not use the index because the table is very small.
+9. The index is expected to be more useful as the table grows.
+10. The query plan and execution time were compared to evaluate performance.
