@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Calculator application for DevOps CI/CD assignment
+Resources:
+  CalculatorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: CalculatorFunction
+      Handler: calculator.lambda_handler
+      Runtime: python3.12
+      Timeout: 10
+      MemorySize: 128
+    Metadata:
+      SamResourceId: CalculatorFunction
