@@ -1,0 +1,10 @@
+The dim_customer table was implemented using SCD Type 2 to preserve customer history when city values changed.
+The old customer records were expired and new versions were inserted with is_current set to TRUE.
+The orders table was partitioned by order_date using RANGE partitioning for 2022, 2023, and 2024.
+Partition pruning allows PostgreSQL to scan only the relevant year partition when filtering by order_date.
+The COPY command was used to bulk-load 2024 order data efficiently instead of inserting rows individually.
+ANALYZE was run after loading to update table statistics for better query planning.
+A composite index on (customer_id, order_date) was created for queries filtering by customer and date.
+A partial index was created for completed orders to reduce the amount of data stored in the index.
+A covering index using INCLUDE (amount) was created to support the reporting query and potentially enable index-only scans.
+EXPLAIN ANALYZE was used before and after indexing to compare execution plans and measure the effect of the optimizations.
