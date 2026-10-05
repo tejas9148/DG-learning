@@ -1,0 +1,94 @@
+COMPOSITE INDEX - BEFORE
+
+QUERY PLAN
+Seq Scan on orders_2024 orders (cost=0.00..22.43 rows=1 width=86) (actual time=0.063..0.064 rows=1.00 loops=1)
+Filter: ((order_date >= '2024-01-01'::date) AND (order_date < '2025-01-01'::date) AND (customer_id = 5))
+Rows Removed by Filter: 9
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=129
+Planning Time: 3.030 ms
+Execution Time: 0.102 ms
+
+composite index after:
+
+QUERY PLAN
+Seq Scan on orders_2024 orders (cost=0.00..1.18 rows=1 width=86) (actual time=0.038..0.039 rows=1.00 loops=1)
+Filter: ((order_date >= '2024-01-01'::date) AND (order_date < '2025-01-01'::date) AND (customer_id = 5))
+Rows Removed by Filter: 9
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=102 read=1
+Planning Time: 2.226 ms
+Execution Time: 0.096 ms
+
+partital index - BEFORE
+
+QUERY PLAN
+Append (cost=0.00..3.39 rows=3 width=86) (actual time=0.033..0.065 rows=18.00 loops=1)
+Buffers: shared hit=3
+-> Seq Scan on orders_2022 orders_1 (cost=0.00..1.12 rows=1 width=86) (actual time=0.028..0.030 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+-> Seq Scan on orders_2023 orders_2 (cost=0.00..1.12 rows=1 width=86) (actual time=0.012..0.013 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+-> Seq Scan on orders_2024 orders_3 (cost=0.00..1.12 rows=1 width=86) (actual time=0.014..0.015 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=218 read=2
+Planning Time: 2.904 ms
+Execution Time: 0.117 ms
+
+partital index - after
+
+QUERY PLAN
+Append (cost=0.00..3.39 rows=3 width=86) (actual time=0.028..0.049 rows=18.00 loops=1)
+Buffers: shared hit=3
+-> Seq Scan on orders_2022 orders_1 (cost=0.00..1.12 rows=1 width=86) (actual time=0.025..0.026 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+-> Seq Scan on orders_2023 orders_2 (cost=0.00..1.12 rows=1 width=86) (actual time=0.010..0.011 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+-> Seq Scan on orders_2024 orders_3 (cost=0.00..1.12 rows=1 width=86) (actual time=0.007..0.008 rows=6.00 loops=1)
+Filter: ((status)::text = 'completed'::text)
+Rows Removed by Filter: 4
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=268 read=3
+Planning Time: 2.217 ms
+Execution Time: 0.096 ms
+
+
+covering index - BEFORE
+
+QUERY PLAN
+Seq Scan on orders_2024 orders (cost=0.00..1.18 rows=1 width=24) (actual time=0.024..0.025 rows=1.00 loops=1)
+Filter: ((order_date >= '2024-01-01'::date) AND (order_date < '2025-01-01'::date) AND (customer_id = 5))
+Rows Removed by Filter: 9
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=205
+Planning Time: 1.682 ms
+Execution Time: 0.066 ms
+
+covering index - after
+
+QUERY PLAN
+Seq Scan on orders_2024 orders (cost=0.00..1.18 rows=1 width=24) (actual time=0.019..0.020 rows=1.00 loops=1)
+Filter: ((order_date >= '2024-01-01'::date) AND (order_date < '2025-01-01'::date) AND (customer_id = 5))
+Rows Removed by Filter: 9
+Buffers: shared hit=1
+Planning:
+Buffers: shared hit=55 read=1
+Planning Time: 1.388 ms
+Execution Time: 0.029 ms
+
+
