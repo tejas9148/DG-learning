@@ -1,6 +1,5 @@
-# DataGrokr Git Assignment — Part I: Git Fundamentals
+#  Git Assignment — Part I: Git Fundamentals
 
-*After completing this part, host the Git repository publicly on GitHub and submit the link to your learning coordinator.*
 
 ---
 
