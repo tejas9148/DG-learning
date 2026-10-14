@@ -1,0 +1,3 @@
+[submodule "git/git_assignment/country-capital-api"]
+	path = git/git_assignment/country-capital-api
+	url = https://github.com/tejas9148/country-capital-api.git
