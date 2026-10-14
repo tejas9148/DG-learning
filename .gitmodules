@@ -1,0 +1,9 @@
+[submodule "git/git_assignment/country-capital-api"]
+	path = git/git_assignment/country-capital-api
+	url = https://github.com/tejas9148/country-capital-api.git
+[submodule "git/git_assignment/my-exciting-project"]
+	path = git/git_assignment/my-exciting-project
+	url = https://github.com/tejas9148/my-exciting-project.git
+[submodule "git/git_miniproject/gitflow_release_cycle"]
+	path = git/git_miniproject/gitflow_release_cycle
+	url = https://github.com/tejas9148/git-miniproject-DG.git
