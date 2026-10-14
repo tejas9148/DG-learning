@@ -1,6 +1,5 @@
-# DataGrokr Git Assignment — Part II: Git Hygiene
+#  Git Assignment — Part II: Git Hygiene
 
-*Deliverables for this assignment need to be submitted as a markdown/doc file to your learning coordinator.*
 
 ---
 
