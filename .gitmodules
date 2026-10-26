@@ -7,3 +7,6 @@
 [submodule "git/git_miniproject/gitflow_release_cycle"]
 	path = git/git_miniproject/gitflow_release_cycle
 	url = https://github.com/tejas9148/git-miniproject-DG.git
+[submodule "ci_cd_assignment/calculator-cicd-assignment"]
+	path = ci_cd_assignment/calculator-cicd-assignment
+	url = https://github.com/tejas9148/calculator-cicd-assignment
