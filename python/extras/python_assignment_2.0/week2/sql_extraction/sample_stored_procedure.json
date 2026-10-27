@@ -1,0 +1,75 @@
+{
+    "procedures": [
+        {
+            "name": "GetCustomerOrders",
+            "parameters": [
+                {
+                    "mode": "IN",
+                    "name": "customerId",
+                    "type": "INT"
+                },
+                {
+                    "mode": "IN",
+                    "name": "startDate",
+                    "type": "DATE"
+                },
+                {
+                    "mode": "IN",
+                    "name": "endDate",
+                    "type": "DATE"
+                }
+            ]
+        },
+        {
+            "name": "UpdateProductStock",
+            "parameters": [
+                {
+                    "mode": "IN",
+                    "name": "productId",
+                    "type": "INT"
+                },
+                {
+                    "mode": "IN",
+                    "name": "quantityChange",
+                    "type": "INT"
+                },
+                {
+                    "mode": "OUT",
+                    "name": "newStock",
+                    "type": "INT"
+                }
+            ]
+        },
+        {
+            "name": "AddNewEmployee",
+            "parameters": [
+                {
+                    "mode": "IN",
+                    "name": "firstName",
+                    "type": "VARCHAR(50)"
+                },
+                {
+                    "mode": "IN",
+                    "name": "lastName",
+                    "type": "VARCHAR(50)"
+                },
+                {
+                    "mode": "IN",
+                    "name": "department",
+                    "type": "VARCHAR(50)"
+                },
+                {
+                    "mode": "IN",
+                    "name": "salary",
+                    "type": "DECIMAL(10,2)"
+                }
+            ]
+        }
+    ],
+    "functions": [],
+    "tables": [
+        "orders",
+        "products",
+        "employees"
+    ]
+}
