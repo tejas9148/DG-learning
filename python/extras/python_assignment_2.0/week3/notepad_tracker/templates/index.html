@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notepad Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 40px;
+        }
+
+        input {
+            width: 500px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 400px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #status {
+            margin-top: 10px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Notepad Tracker</h1>
+
+    <p>Enter the file path:</p>
+
+    <input
+        type="text"
+        id="filePath"
+        placeholder="Example: C:/Users/Tejas/Desktop/note.txt"
+    >
+
+    <br>
+
+    <textarea
+        id="editor"
+        placeholder="Start writing here..."
+    ></textarea>
+
+    <p id="status">Start writing...</p>
+
+
+    <script>
+
+        let timer;
+
+        const editor = document.getElementById("editor");
+        const filePath = document.getElementById("filePath");
+        const status = document.getElementById("status");
+
+
+        editor.addEventListener("input", function () {
+
+            status.innerText = "Writing...";
+
+            // Wait for 2 seconds after the user stops typing
+            clearTimeout(timer);
+
+            timer = setTimeout(function () {
+
+                saveFile();
+
+            }, 2000);
+
+        });
+
+
+        function saveFile() {
+
+            if (filePath.value == "") {
+                status.innerText = "Please enter a file path";
+                return;
+            }
+
+            fetch("/save", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    file_path: filePath.value,
+                    content: editor.value
+
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                status.innerText = data.message;
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>
