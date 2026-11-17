@@ -50,6 +50,7 @@ Region used: Mumbai (`ap-south-1`). All steps are done in the AWS Console.
 ### 2. Enable versioning
 1. Open the bucket -> **Properties** tab.
 2. **Bucket Versioning** -> **Edit** -> **Enable** -> **Save changes**.
+![alt text](<Screenshot 2026-11-17 151329.png>)
 
 ### 3. Set the access policy
 1. Open the bucket -> **Permissions** tab -> **Bucket policy** -> **Edit**.
